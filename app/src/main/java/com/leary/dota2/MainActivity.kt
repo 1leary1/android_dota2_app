@@ -68,18 +68,23 @@ fun DotaScreen(){
         modifier = Modifier
             .padding(top = 392.dp, start = 24.dp)
             .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.spacedBy(24.dp)
         ){
+        item {
+            GameTags()
+        }
         item {
             Description()
         }
         item {
             ImageScrollBar()
         }
+        item {
+            Raitings()
+        }
     }
 }
 
-@Preview(showBackground = true)
 @Composable
 fun HeaderImage(){
     Box(
@@ -121,6 +126,7 @@ fun Icon(){
 fun GameInfo(){
     Box(
         modifier = Modifier
+            .padding(top = 324.dp, start = 124.dp)
     ){
         Text(
             text = "DoTA 2",
@@ -130,6 +136,26 @@ fun GameInfo(){
                 fontFamily = FontFamily(Font(R.font.sk_modernist)),
                 fontWeight = FontWeight(700),
                 color = Color(0xFFFFFFFF),
+                letterSpacing = 0.5.sp,
+            )
+        )
+        Image(
+            modifier = Modifier
+                .padding(0.dp, 32.dp)
+                .size(76.dp, 12.dp),
+            painter = painterResource(id = R.drawable.stars),
+            contentDescription = null
+        )
+        Text(modifier = Modifier
+            .padding(86.dp, 32.dp)
+            .size(76.dp, 12.dp),
+            text = "70M",
+            style = TextStyle(
+                fontSize = 12.sp,
+                fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                fontWeight = FontWeight(400),
+                color = Color(0xFF45454D),
+
                 letterSpacing = 0.5.sp,
             )
         )
@@ -156,7 +182,7 @@ fun MainContent(){
 fun Description(){
     Box(
         modifier = Modifier
-            .size(327.dp, 76.dp)
+            .size(327.dp, 80.dp)
         ){
         Text(
             text = "Dota 2 is a multiplayer online battle arena (MOBA) game which has two teams of five players compete to collectively destroy a large structure defended by the opposing team known as the \"Ancient\", whilst defending their own.",
@@ -174,7 +200,8 @@ fun Description(){
 @Preview
 @Composable
 fun ImageScrollBar(){
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(15.dp),
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(15.dp),
         modifier = Modifier
             .height(135.dp)
     ){
@@ -190,5 +217,132 @@ fun ImageScrollBar(){
                 painter = painterResource(id = R.drawable.scroller_img2),
                 contentDescription = null)
         }
+    }
+}
+@Preview
+@Composable
+fun GameTags(){
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        ){
+        item {//тут нужно заменить на чтение из массива
+            Box(
+                modifier = Modifier
+                    .height(22.dp)
+                    .fillMaxWidth()
+                    .background(
+                        color = Color(0x3D44A9F4),
+                        shape = RoundedCornerShape(size = 100.dp)
+                    )
+            ){
+                Text(modifier = Modifier
+                    .padding(10.dp, 4.dp),
+                    text = "MOBA",
+                    style = TextStyle(
+                        fontSize = 10.sp,
+                        fontFamily = FontFamily(Font(R.font.montserrat_regular)),
+                        fontWeight = FontWeight(500),
+                        color = Color(0xFF44A9F4),
+
+                        )
+                )
+            }
+        }
+        item {
+            Box(
+                modifier = Modifier
+                    .height(22.dp)
+                    .fillMaxWidth()
+                    .background(
+                        color = Color(0x3D44A9F4),
+                        shape = RoundedCornerShape(size = 100.dp)
+                    )
+            ){
+                Text(modifier = Modifier
+                    .padding(10.dp, 4.dp),
+                    text = "MULTIPLAYER",
+                    style = TextStyle(
+                        fontSize = 10.sp,
+                        fontFamily = FontFamily(Font(R.font.montserrat_regular)),
+                        fontWeight = FontWeight(500),
+                        color = Color(0xFF44A9F4),
+
+                        )
+                )
+            }
+        }
+        item {
+            Box(
+                modifier = Modifier
+                    .height(22.dp)
+                    .fillMaxWidth()
+                    .background(
+                        color = Color(0x3D44A9F4),
+                        shape = RoundedCornerShape(size = 100.dp)
+                    )
+            ){
+                Text(modifier = Modifier
+                    .padding(10.dp, 4.dp),
+                    text = "STRATEGY",
+                    style = TextStyle(
+                        fontSize = 10.sp,
+                        fontFamily = FontFamily(Font(R.font.montserrat_regular)),
+                        fontWeight = FontWeight(500),
+                        color = Color(0xFF44A9F4),
+
+                        )
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun Raitings(){
+    Box(
+
+    ){
+        Text(
+            text = "Review & Ratings",
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                fontWeight = FontWeight(700),
+                color = Color(0xFFEEF2FB),
+
+                letterSpacing = 0.6.sp,
+            )
+        )
+        Text(
+            modifier = Modifier
+                .padding(0.dp, 31.dp),
+            text = "4.9",
+            style = TextStyle(
+                fontSize = 48.sp,
+                fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                fontWeight = FontWeight(700),
+                color = Color(0xFFFFFFFF),
+
+                )
+        )
+        Text(
+            modifier = Modifier
+                .padding(77.dp, 68.dp),
+            text = "70M Reviews",
+            style = TextStyle(
+                fontSize = 12.sp,
+                fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                fontWeight = FontWeight(400),
+                color = Color(0xFFA8ADB7),
+
+                letterSpacing = 0.5.sp,
+            )
+        )
+        Image(
+            modifier = Modifier
+                .padding(77.dp,48.dp)
+                .size(76.dp, 12.dp),
+            painter = painterResource(id = R.drawable.bottom_rating),
+            contentDescription = null)
     }
 }
