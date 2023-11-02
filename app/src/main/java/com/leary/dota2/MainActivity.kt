@@ -1,15 +1,14 @@
 package com.leary.dota2
 
-import android.icu.text.IDNA.Info
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,7 +16,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,7 +30,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.ModifierLocalNode
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -47,17 +51,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DotaScreen()
+                    val tagsList : List<String> = listOf("MOBA", "MULTIPLAYER", "STRATEGY")
+                    DotaScreen(tagsList)
                 }
             }
         }
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun DotaScreen(){
-
+fun DotaScreen(tagsList: List<String>){
     Box {
         HeaderImage()
         MainContent()
@@ -69,9 +72,9 @@ fun DotaScreen(){
             .padding(top = 392.dp, start = 24.dp)
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(24.dp)
-        ){
+    ){
         item {
-            GameTags()
+            GameTags(tagsList)
         }
         item {
             Description()
@@ -82,7 +85,12 @@ fun DotaScreen(){
         item {
             Raitings()
         }
+        item {
+            ReviewBar()
+        }
     }
+    InstallButton()
+
 }
 
 @Composable
@@ -185,7 +193,7 @@ fun Description(){
             .size(327.dp, 80.dp)
         ){
         Text(
-            text = "Dota 2 is a multiplayer online battle arena (MOBA) game which has two teams of five players compete to collectively destroy a large structure defended by the opposing team known as the \"Ancient\", whilst defending their own.",
+            text = stringResource(id = R.string.description),
             style = TextStyle(
                 fontSize = 12.sp,
                 lineHeight = 19.sp,
@@ -219,13 +227,12 @@ fun ImageScrollBar(){
         }
     }
 }
-@Preview
 @Composable
-fun GameTags(){
+fun GameTags(list: List<String>){
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         ){
-        item {//тут нужно заменить на чтение из массива
+        items(list) { item ->
             Box(
                 modifier = Modifier
                     .height(22.dp)
@@ -237,53 +244,7 @@ fun GameTags(){
             ){
                 Text(modifier = Modifier
                     .padding(10.dp, 4.dp),
-                    text = "MOBA",
-                    style = TextStyle(
-                        fontSize = 10.sp,
-                        fontFamily = FontFamily(Font(R.font.montserrat_regular)),
-                        fontWeight = FontWeight(500),
-                        color = Color(0xFF44A9F4),
-
-                        )
-                )
-            }
-        }
-        item {
-            Box(
-                modifier = Modifier
-                    .height(22.dp)
-                    .fillMaxWidth()
-                    .background(
-                        color = Color(0x3D44A9F4),
-                        shape = RoundedCornerShape(size = 100.dp)
-                    )
-            ){
-                Text(modifier = Modifier
-                    .padding(10.dp, 4.dp),
-                    text = "MULTIPLAYER",
-                    style = TextStyle(
-                        fontSize = 10.sp,
-                        fontFamily = FontFamily(Font(R.font.montserrat_regular)),
-                        fontWeight = FontWeight(500),
-                        color = Color(0xFF44A9F4),
-
-                        )
-                )
-            }
-        }
-        item {
-            Box(
-                modifier = Modifier
-                    .height(22.dp)
-                    .fillMaxWidth()
-                    .background(
-                        color = Color(0x3D44A9F4),
-                        shape = RoundedCornerShape(size = 100.dp)
-                    )
-            ){
-                Text(modifier = Modifier
-                    .padding(10.dp, 4.dp),
-                    text = "STRATEGY",
+                    text =  item,
                     style = TextStyle(
                         fontSize = 10.sp,
                         fontFamily = FontFamily(Font(R.font.montserrat_regular)),
@@ -300,7 +261,8 @@ fun GameTags(){
 @Composable
 fun Raitings(){
     Box(
-
+        modifier = Modifier
+        .size(300.dp, 150.dp),
     ){
         Text(
             text = "Review & Ratings",
@@ -325,24 +287,147 @@ fun Raitings(){
 
                 )
         )
-        Text(
+        Box(
             modifier = Modifier
-                .padding(77.dp, 68.dp),
-            text = "70M Reviews",
+                .padding(77.dp, 48.dp)
+        ){
+            Text(
+                modifier = Modifier
+                    .padding(0.dp, 20.dp),
+                text = "70M Reviews",
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                    fontWeight = FontWeight(400),
+                    color = Color(0xFFA8ADB7),
+                    letterSpacing = 0.5.sp,
+                )
+            )
+            Image(
+                modifier = Modifier
+                    .size(76.dp, 12.dp),
+                painter = painterResource(id = R.drawable.bottom_rating),
+                contentDescription = null)
+        }
+
+    }
+}
+
+@Preview
+@Composable
+fun ReviewBar(){
+    Box(){
+        Image(
+            modifier = Modifier.size(36.dp),
+            painter = painterResource(id = R.drawable.user1),
+            contentDescription = null
+        )
+        Text(modifier = Modifier.padding(52.dp, 0.dp),
+            text = "Auguste Conte",
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                fontWeight = FontWeight(400),
+                color = Color(0xFFFFFFFF),
+                letterSpacing = 0.5.sp,
+                )
+        )
+        Text(modifier = Modifier.padding(52.dp, 24.dp),
+            text = "February 14, 2019",
             style = TextStyle(
                 fontSize = 12.sp,
                 fontFamily = FontFamily(Font(R.font.sk_modernist)),
                 fontWeight = FontWeight(400),
+                color = Color(0x66FFFFFF),
+                letterSpacing = 0.5.sp,
+                )
+        )
+        Text(modifier = Modifier.padding(0.dp, 62.dp),
+            text = "“Once you start to learn its secrets, there’s a wild and exciting variety of play here that’s unmatched, even by its peers.”",
+            style = TextStyle(
+                fontSize = 12.sp,
+                lineHeight = 20.sp,
+                fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                fontWeight = FontWeight(400),
                 color = Color(0xFFA8ADB7),
+                letterSpacing = 0.5.sp,
+                )
+        )
+    }
 
+    Image(
+        modifier = Modifier.size(300.dp, 2.dp),
+        painter = painterResource(id = R.drawable.borderline),
+        contentDescription = null)
+
+    Box {
+        Image(
+            modifier = Modifier.size(36.dp),
+            painter = painterResource(id = R.drawable.user2),
+            contentDescription = null
+        )
+        Text(modifier = Modifier.padding(52.dp, 0.dp),
+            text = "Jang Marcelino",
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                fontWeight = FontWeight(400),
+                color = Color(0xFFFFFFFF),
                 letterSpacing = 0.5.sp,
             )
         )
-        Image(
-            modifier = Modifier
-                .padding(77.dp,48.dp)
-                .size(76.dp, 12.dp),
-            painter = painterResource(id = R.drawable.bottom_rating),
-            contentDescription = null)
+
+        Text(modifier = Modifier.padding(52.dp, 24.dp),
+            text = "February 14, 2019",
+            style = TextStyle(
+                fontSize = 12.sp,
+                fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                fontWeight = FontWeight(400),
+                color = Color(0x66FFFFFF),
+                letterSpacing = 0.5.sp,
+            )
+        )
+        Text(modifier = Modifier.padding(0.dp, 62.dp),
+            text = "“Once you start to learn its secrets, there’s a wild and exciting variety of play here that’s unmatched, even by its peers.”",
+            style = TextStyle(
+                fontSize = 12.sp,
+                lineHeight = 20.sp,
+                fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                fontWeight = FontWeight(400),
+                color = Color(0xFFA8ADB7),
+                letterSpacing = 0.5.sp,
+            )
+        )
+    }
+}
+@Preview
+@Composable
+fun InstallButton(){
+    Box(contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .padding(start = 24.dp, end = 24.dp, top = 650.dp, bottom = 38.dp)
+            .size(345.dp, 64.dp)
+            .clickable {
+
+            }
+            .background(
+                color = Color(0xFFF4D144), shape = RoundedCornerShape(size = 12.dp)
+
+            )
+
+    ){
+
+        Text(modifier = Modifier
+            .padding(134.dp, 20.dp),
+            text = "Install",
+            style = TextStyle(
+                fontSize = 20.sp,
+                fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                fontWeight = FontWeight(700),
+                color = Color(0xFF050B18),
+
+                letterSpacing = 0.6.sp,
+            )
+        )
     }
 }
