@@ -9,6 +9,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,8 +19,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -27,10 +26,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.ModifierLocalNode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -308,90 +305,98 @@ fun Raitings(){
 @Preview
 @Composable
 fun ReviewBar(){
-    Box(){
+    Column {
+        Box() {
+            Image(
+                modifier = Modifier.size(36.dp),
+                painter = painterResource(id = R.drawable.user1),
+                contentDescription = null
+            )
+            Text(
+                modifier = Modifier.padding(52.dp, 0.dp),
+                text = "Auguste Conte",
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                    fontWeight = FontWeight(400),
+                    color = Color(0xFFFFFFFF),
+                    letterSpacing = 0.5.sp,
+                )
+            )
+            Text(
+                modifier = Modifier.padding(52.dp, 24.dp),
+                text = "February 14, 2019",
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                    fontWeight = FontWeight(400),
+                    color = Color(0x66FFFFFF),
+                    letterSpacing = 0.5.sp,
+                )
+            )
+            Text(
+                modifier = Modifier.padding(0.dp, 62.dp),
+                text = "“Once you start to learn its secrets, there’s a wild and exciting variety of play here that’s unmatched, even by its peers.”",
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    lineHeight = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                    fontWeight = FontWeight(400),
+                    color = Color(0xFFA8ADB7),
+                    letterSpacing = 0.5.sp,
+                )
+            )
+        }
         Image(
-            modifier = Modifier.size(36.dp),
-            painter = painterResource(id = R.drawable.user1),
-            contentDescription = null
-        )
-        Text(modifier = Modifier.padding(52.dp, 0.dp),
-            text = "Auguste Conte",
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.sk_modernist)),
-                fontWeight = FontWeight(400),
-                color = Color(0xFFFFFFFF),
-                letterSpacing = 0.5.sp,
-                )
-        )
-        Text(modifier = Modifier.padding(52.dp, 24.dp),
-            text = "February 14, 2019",
-            style = TextStyle(
-                fontSize = 12.sp,
-                fontFamily = FontFamily(Font(R.font.sk_modernist)),
-                fontWeight = FontWeight(400),
-                color = Color(0x66FFFFFF),
-                letterSpacing = 0.5.sp,
-                )
-        )
-        Text(modifier = Modifier.padding(0.dp, 62.dp),
-            text = "“Once you start to learn its secrets, there’s a wild and exciting variety of play here that’s unmatched, even by its peers.”",
-            style = TextStyle(
-                fontSize = 12.sp,
-                lineHeight = 20.sp,
-                fontFamily = FontFamily(Font(R.font.sk_modernist)),
-                fontWeight = FontWeight(400),
-                color = Color(0xFFA8ADB7),
-                letterSpacing = 0.5.sp,
-                )
-        )
-    }
+            modifier = Modifier.size(300.dp, 2.dp),
+            painter = painterResource(id = R.drawable.borderline),
+            contentDescription = null)
 
-    Image(
-        modifier = Modifier.size(300.dp, 2.dp),
-        painter = painterResource(id = R.drawable.borderline),
-        contentDescription = null)
+        Box {
+            Image(
+                modifier = Modifier.size(36.dp),
+                painter = painterResource(id = R.drawable.user2),
+                contentDescription = null
+            )
+            Text(modifier = Modifier.padding(52.dp, 0.dp),
+                text = "Jang Marcelino",
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                    fontWeight = FontWeight(400),
+                    color = Color(0xFFFFFFFF),
+                    letterSpacing = 0.5.sp,
+                )
+            )
 
-    Box {
-        Image(
-            modifier = Modifier.size(36.dp),
-            painter = painterResource(id = R.drawable.user2),
-            contentDescription = null
-        )
-        Text(modifier = Modifier.padding(52.dp, 0.dp),
-            text = "Jang Marcelino",
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.sk_modernist)),
-                fontWeight = FontWeight(400),
-                color = Color(0xFFFFFFFF),
-                letterSpacing = 0.5.sp,
+            Text(modifier = Modifier.padding(52.dp, 24.dp),
+                text = "February 14, 2019",
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                    fontWeight = FontWeight(400),
+                    color = Color(0x66FFFFFF),
+                    letterSpacing = 0.5.sp,
+                )
             )
-        )
-
-        Text(modifier = Modifier.padding(52.dp, 24.dp),
-            text = "February 14, 2019",
-            style = TextStyle(
-                fontSize = 12.sp,
-                fontFamily = FontFamily(Font(R.font.sk_modernist)),
-                fontWeight = FontWeight(400),
-                color = Color(0x66FFFFFF),
-                letterSpacing = 0.5.sp,
+            Text(modifier = Modifier.padding(0.dp, 62.dp),
+                text = "“Once you start to learn its secrets, there’s a wild and exciting variety of play here that’s unmatched, even by its peers.”",
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    lineHeight = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.sk_modernist)),
+                    fontWeight = FontWeight(400),
+                    color = Color(0xFFA8ADB7),
+                    letterSpacing = 0.5.sp,
+                )
             )
-        )
-        Text(modifier = Modifier.padding(0.dp, 62.dp),
-            text = "“Once you start to learn its secrets, there’s a wild and exciting variety of play here that’s unmatched, even by its peers.”",
-            style = TextStyle(
-                fontSize = 12.sp,
-                lineHeight = 20.sp,
-                fontFamily = FontFamily(Font(R.font.sk_modernist)),
-                fontWeight = FontWeight(400),
-                color = Color(0xFFA8ADB7),
-                letterSpacing = 0.5.sp,
-            )
-        )
+        }
+        Box(modifier = Modifier
+            .size(105.dp))
     }
 }
+
+
 @Preview
 @Composable
 fun InstallButton(){
