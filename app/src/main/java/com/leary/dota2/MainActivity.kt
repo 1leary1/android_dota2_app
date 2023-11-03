@@ -111,16 +111,8 @@ fun Icon(){
         modifier = Modifier
             .padding(21.dp, 281.dp)
             .size(88.dp)
-            .border(
-                width = 2.dp,
-                color = Color(0x1F2430),
-                shape = RoundedCornerShape(12.dp)
-            )
-            .shadow(
-                elevation = 20.dp,
-                spotColor = Color.Black,
-                shape = RoundedCornerShape(12.dp)
-            )
+            .border(2.dp, Color(31, 36, 48), RoundedCornerShape(15.dp))
+            .clip(RoundedCornerShape(15.dp))
             .background(color = Color.Black)
     ) {
         Image(painter = painterResource(id = R.drawable.logo),
